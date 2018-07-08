@@ -1,0 +1,8 @@
+#
+# This file contains a list of external dependencies
+# needed to run python, they are processed by easy_install
+#
+
+objectpath==0.5
+pytz==2018.5
+requests==2.19.1
