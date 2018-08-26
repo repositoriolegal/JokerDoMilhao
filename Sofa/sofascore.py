@@ -2,14 +2,44 @@ import requests
 import csv
 from objectpath import Tree
 
-URL_MATCH = 'https://www.sofascore.com/pt/{slug_match}/{match_custom_id}'
 URL_MATCHES = "https://www.sofascore.com/tournament/24/{id_tournament}/standings/tables/json"
+URL_MATCH_DATA = "https://www.sofascore.com/event/{match_id}/json?_="
 
 ALLSVENSKAN_ID = 15731
+
 
 def get_id_matches():
     response = requests.get(URL_MATCHES.format(id_tournament=ALLSVENSKAN_ID))
 
+    data = response.json()
+
+    teams_ids = data['teamEvents'].keys()
+    print(teams_ids)
+
+    for team_id in teams_ids:
+        print(team_id)
+
+        keys = ['total', 'home', 'away']
+
+        for match in data['teamEvents'][team_id]['total']:
+
+            match_id = match['id']
+
+            get_match_data(match_id)
+
+        break
+
+    # incidentType": "goal
+
+    # for in keys:
+
+    import ipdb;ipdb.set_trace()
+
+        # data['teamEvents'][team_id]['away'][game]['awayScore']['current']
+
+        # get_match_info()
+
+    # O response retorna um data da seguinte maneira
     # Retornar lista de URLs de cada partida
     # URL.format(slug_match=,match_id)
     # slug_match e match_id estão contidos no json da response acima
@@ -19,40 +49,26 @@ def get_id_matches():
     # Dic_2: '1768', '1762', '1759', '1769', '1761', '1891', '1771',
     # '1764', '1760', '1763', '22260', '1787', '1793', '1892', '1758', '1836'
     # Dic_3: 'total', 'home', 'away'
-    return 'hello'
 
-def search_result(query):
-    SEARCH_URL = 'https://www.sofascore.com/search/results?q={}'.format
-    T_QUERY = '$.*[@.name is "{}" and @.category.sport.name is "Football"].id'.format  # noqa
+def get_match_data(match_id):
 
-    response = requests.get(SEARCH_URL(query))
-    if response.status_code == 200:
-        response_tree = Tree(response.json()['tournaments'])
-        tournament_id = tuple(response_tree.execute(T_QUERY(query)))[0]
-        return get_team_ids(tournament_id)
+    response = requests.get(URL_MATCH_DATA.format(match_id=match_id))
 
+    data = response.json()
 
-def get_team_ids(tournament_id):
-    SEARCH_URL = 'https://www.sofascore.com/u-tournament/{}/season/15731/json'
-    T_QUERY = '$.standingsTables.tableRows'
-    TEAM_URL_BASE = 'https://www.sofascore.com/pt/time/futebol/{slug}/{t_id}'
-    teams = []
+    if data['event']['season']['year'] == "2018":
 
-    response = requests.get(SEARCH_URL.format(tournament_id))
-    if response.status_code == 200:
-        response_tree = Tree(response.json())
-        table_row = tuple(response_tree.execute(T_QUERY))[0]
-        for row in table_row:
-            info = row['team']
-            team_url = TEAM_URL_BASE.format(slug=info['slug'], t_id=info['id'])
-            team_obj = {
-                'slug': info['slug'],
-                'name': info['shortName'],
-                'id': info['id'],
-                'url': team_url
-            }
-            teams.append(team_obj)
-    return teams
+        aux = []
+        for incident in data['incidents']:
+            if incident['incidentType'] == "goal":
+
+                aux.append(incident)
+
+                print("Home: " + str(incident['homeScore']))
+                print("Away: " + str(incident['awayScore']))
+                print("Time: " + str(incident['time']))
+
+        print(len(aux))
 
 
 if __name__ == "__main__":
