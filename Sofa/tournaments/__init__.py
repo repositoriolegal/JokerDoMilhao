@@ -1,0 +1,1 @@
+from tournaments.tournaments import Allsvenskan
