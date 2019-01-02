@@ -1,1 +1,1 @@
-from tournaments.tournaments import Allsvenskan
+from tournaments.tournaments import Allsvenskan, MLS
