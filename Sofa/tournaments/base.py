@@ -31,7 +31,7 @@ class BaseTournament():
         elif self.BY_MATCH:
             matches_ids = self.get_all_matches_ids_by_weeks(weeks=data['events']['weeks'])
         else:
-            logging.info("Choose to get the IDs matches by round or by week.")
+            logging.error("Choose to get the IDs matches by round or by week.")
 
         events = self.get_all_matches_data(matches_ids)
 
