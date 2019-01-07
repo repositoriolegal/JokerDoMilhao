@@ -68,7 +68,7 @@ class BaseTournament():
         for week in weeks:
             logging.info("Getting all matches ids from week %s...", week['weekIndex'])
 
-            ids = self.get_matches_ids_by_week(start_date = week['weekStartDate'], end_date=week['weekEndDate'])
+            ids = self.get_matches_ids_by_week(start_date=week['weekStartDate'], end_date=week['weekEndDate'])
             matches_ids = matches_ids + ids
 
             logging.info("Got all matches ids from week %s", week['weekIndex'])
