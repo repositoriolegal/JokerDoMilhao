@@ -27,7 +27,8 @@ class BaseTournament():
 
         events = self.get_all_matches_data(matches_ids)
 
-        print(len(events))
+        logging.info('Scrapped {} events.'.format(len(events)))
+        return events
 
 
     def get_all_matches_ids_by_rounds(self, data) -> list:
