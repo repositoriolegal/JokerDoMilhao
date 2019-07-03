@@ -1,8 +1,12 @@
+import os
+from urllib.parse import urljoin
+
 # Tournament Constants
-URL_TOURNAMENT = "https://www.sofascore.com/u-tournament/{id_tournament}/season/{id_season}/json?_="
-URL_ROUND_MATCHES = "https://www.sofascore.com/u-tournament/{id_tournament}/season/{id_season}/matches/round/{round_number}?_="
-URL_WEEK_MATCHES = "https://www.sofascore.com/u-tournament/{id_tournament}/season/{id_season}/matches/week/{start_date}/{end_date}"
-URL_MATCH_DATA = "https://www.sofascore.com/event/{match_id}/json?_="
+url_host = os.environ.get('URL_HOST')
+URL_TOURNAMENT = urljoin(url_host,"u-tournament/{id_tournament}/season/{id_season}/json?_=")
+URL_ROUND_MATCHES = urljoin(url_host,"u-tournament/{id_tournament}/season/{id_season}/matches/round/{round_number}?_=")
+URL_WEEK_MATCHES = urljoin(url_host,"u-tournament/{id_tournament}/season/{id_season}/matches/week/{start_date}/{end_date}")
+URL_MATCH_DATA = urljoin(url_host,"event/{match_id}/json?_=")
 
 # Allsvenskan Constants
 ALLSVENSKAN_ID = 40
