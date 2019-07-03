@@ -1,1 +1,1 @@
-from tournaments.tournaments import Allsvenskan, MLS
+from tournaments.tournaments import Allsvenskan, MLS, BRSerieA, BRSerieB, PremierLeagueEngland

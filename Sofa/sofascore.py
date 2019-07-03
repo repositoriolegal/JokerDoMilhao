@@ -1,5 +1,5 @@
 from stats import Stats
-from tournaments import Allsvenskan
+from tournaments import Allsvenskan, BRSerieA, Allsvenskan, MLS, BRSerieA, BRSerieB, PremierLeagueEngland
 
 
 if __name__ == "__main__":
