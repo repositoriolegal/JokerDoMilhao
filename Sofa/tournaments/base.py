@@ -38,7 +38,6 @@ class BaseTournament():
         logging.info('Scrapped {} events.'.format(len(events)))
         return events
 
-
     def get_all_matches_ids_by_rounds(self, data) -> list:
         rounds = data['events']['rounds']
 
@@ -63,7 +62,6 @@ class BaseTournament():
 
         return matches_ids
 
-
     def get_all_matches_ids_by_weeks(self, weeks) -> list:
         matches_ids = []
         for week in weeks:
@@ -76,7 +74,6 @@ class BaseTournament():
 
         return matches_ids
 
-
     def get_matches_ids_by_round(self, round_number) -> list:
         response = requests.get(self.URL_ROUND_MATCHES.format(id_tournament=self.TOURNAMENT_ID,
                                                         id_season=self.TOURNAMENT_SEASON_ID,
@@ -87,7 +84,6 @@ class BaseTournament():
         matchs_ids = self.get_matches_ids(data, 'roundMatches')
 
         return matchs_ids
-
 
     def get_matches_ids_by_week(self, start_date, end_date) -> list:
         response = requests.get(self.URL_WEEK_MATCHES .format(id_tournament=self.TOURNAMENT_ID,
@@ -100,7 +96,6 @@ class BaseTournament():
         matchs_ids = self.get_matches_ids(data, 'weekMatches')
 
         return matchs_ids
-
     
     def get_matches_ids(self, data, data_by) -> list:
         matchs_ids = []
@@ -109,14 +104,12 @@ class BaseTournament():
 
         return matchs_ids
 
-
     def get_all_matches_data(self, matches_ids) -> list:
         events = []
         for id_match in matches_ids:
             events.append(self.get_match_data(id_match))
 
         return events
-
 
     def get_match_data(self, match_id) -> dict:
         logging.info("Getting match data from match number %s...", match_id)
